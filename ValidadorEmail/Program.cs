@@ -13,13 +13,13 @@ namespace ValidadorEmail
 {
     class Program
     {
-        const int VERSAO = 3;
+        const int VERSAO = 4;
         static void Main(string[] args)
         {
 
             Console.WriteLine("Versão {0:000}", VERSAO);
 
-            const string PREFIXO_VAR = "IP_SAIDA_";
+            const string PREFIXO_VAR = "IPSAIDA";
 
             var env = Environment.GetEnvironmentVariables();
             var lst = new List<string>();
