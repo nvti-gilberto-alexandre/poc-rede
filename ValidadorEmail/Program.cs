@@ -8,6 +8,7 @@ using System.Linq.Expressions;
 using System.Collections;
 using System.Collections.Generic;
 using Microsoft.ApplicationInsights.DataContracts;
+using Microsoft.ApplicationInsights.Extensibility.Implementation;
 
 namespace ValidadorEmail
 {
@@ -35,7 +36,7 @@ namespace ValidadorEmail
             {
                 Console.WriteLine("Nenhum IP de saída configurado como variável de ambiente.");
                 Console.WriteLine("Usando IP padrão...");
-                Teste(string.Empty);
+                Teste("192.168.0.102");
             } else
             {
                 Console.WriteLine("{0} IP(s) de saída configurado(s)", lst.Count);
@@ -61,10 +62,12 @@ namespace ValidadorEmail
             {
                 var partes = ip.Split(":");
                 if (partes.Length > 1)
-                    tcp = new TcpClient(partes[0], int.Parse(partes[1]));
+                    tcp = new TcpClient(new IPEndPoint(IPAddress.Parse(partes[0]), int.Parse(partes[1])));
+
                 else
-                    tcp = new TcpClient(partes[0], 0);
+                    tcp = new TcpClient(new IPEndPoint(IPAddress.Parse(partes[0]), 0));
             }
+
 
             Console.WriteLine("Realizando conexão no servidor... ");
             tcp.Connect("20.190.216.223", 10100);
